@@ -47,6 +47,20 @@ Stejné jako v `agro-social`: `[TITULEK]`, `[KATEGORIE]`, `[DATUM]`, `[DATUM_SLU
 
 ---
 
+## Krok 0 — Zkontroluj a sluč nedokončený PR z předchozího běhu
+
+Než začneš cokoliv číst nebo plánovat, ověř, jestli z předchozího běhu nezůstal otevřený,
+nesloučený pull request (větev `claude/`-prefixed → `main`). Pokud ano a je `mergeable_state: clean`,
+rovnou ho sluč (`merge_pull_request`), teprve pak pokračuj Krokem 1.
+
+> **Proč je to nutné:** commit `posted-log.json` (Krok 7) může skončit jen na `claude/`-prefixed
+> větvi, ne přímo v `main` (viz Předpoklady prostředí). Pokud PR z minulého běhu zůstane
+> nesloučený, tenhle běh by četl zastaralý/prázdný `posted-log.json` z `main` a mohl by
+> vybrat už dřív publikovaný článek. Automatické sloučení na začátku běhu tohle riziko
+> eliminuje bez nutnosti manuálního zásahu uživatele.
+
+---
+
 ## Krok 1 — Vyber 3 nepostnuté články (bash/curl/jq)
 
 ```bash
