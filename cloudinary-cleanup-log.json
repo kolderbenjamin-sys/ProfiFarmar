@@ -1,0 +1,29 @@
+{
+  "hard_floor": 6,
+  "dry_run_count": 1,
+  "dry_runs_required": 3,
+  "live_mode_confirmed": false,
+  "runs": [
+    {
+      "run_number": 1,
+      "mode": "dry_run",
+      "timestamp": "2026-07-06T04:10:00Z",
+      "socials_total_assets": 3,
+      "floor_protected_public_ids": [
+        "SOCIALS/social_2026-07_nl_kultivovane_maso",
+        "SOCIALS/social_2026-07_case_ih_puma_reddot",
+        "SOCIALS/social_2026-07_kubota_m5_m7004"
+      ],
+      "eligible_for_evaluation": 0,
+      "would_delete": [],
+      "would_keep_no_match_pending": [],
+      "buffer_matching_validation": {
+        "checked": true,
+        "window": "last 7 days sent posts, all channels",
+        "matches_found": 3,
+        "notes": "All 3 SOCIALS/ assets had a corresponding sent Buffer post (FB+IG, 2026-07-05) with matching public_id in the asset source URL. Sent posts referencing CLANKY/ prefix were correctly excluded from matching against SOCIALS/ assets."
+      },
+      "notes": "Only 3 assets exist in SOCIALS/, all below the hard-floor of 6 newest — nothing was eligible for deletion regardless of Buffer match status. Buffer API matching logic validated successfully against real sent-post data."
+    }
+  ]
+}
