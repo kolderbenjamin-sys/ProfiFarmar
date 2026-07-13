@@ -1,0 +1,16 @@
+[
+  {
+    "run_number": 1,
+    "run_at": "2026-07-13T04:11:17Z",
+    "mode": "dry_run",
+    "cloud_name": "dxrpsbvx2",
+    "prefix": "SOCIALS/",
+    "total_resources": 21,
+    "hard_floor_kept": 6,
+    "would_delete": 15,
+    "would_delete_matched_buffer_sent": 10,
+    "would_delete_age_fallback_no_match": 5,
+    "actually_deleted": 0,
+    "notes": "First dry run of 3 required before any real deletion. Buffer matching validated by public_id substring in asset.source URL, cross-checked against list_posts(status=sent, dueAt>=now-7d). Two assets (social_2026-06_farmdroid_spray, social_2026-06_valtra_cvt) had no Buffer post match at all in full post history (back to 2026-05-14) yet were flagged for deletion under the age>=48h fallback rule -- flagged for manual review, see run summary."
+  }
+]
