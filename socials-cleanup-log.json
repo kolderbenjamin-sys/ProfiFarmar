@@ -12,5 +12,35 @@
     "would_delete_age_fallback_no_match": 5,
     "actually_deleted": 0,
     "notes": "First dry run of 3 required before any real deletion. Buffer matching validated by public_id substring in asset.source URL, cross-checked against list_posts(status=sent, dueAt>=now-7d). Two assets (social_2026-06_farmdroid_spray, social_2026-06_valtra_cvt) had no Buffer post match at all in full post history (back to 2026-05-14) yet were flagged for deletion under the age>=48h fallback rule -- flagged for manual review, see run summary."
+  },
+  {
+    "run_number": 2,
+    "run_at": "2026-07-13T10:02:00Z",
+    "mode": "live",
+    "cloud_name": "dxrpsbvx2",
+    "prefix": "SOCIALS/",
+    "total_resources": 21,
+    "hard_floor_kept": 6,
+    "deleted_matched_buffer_sent": 10,
+    "deleted_age_fallback_no_match": 5,
+    "actually_deleted": 15,
+    "deleted_public_ids": [
+      "SOCIALS/social_2026-06_cesky_med_varroaza",
+      "SOCIALS/social_2026-06_eu_hnojiva_540m",
+      "SOCIALS/social_2026-06_yanmar_yt4s5s",
+      "SOCIALS/social_2026-07_cap_rozpocet",
+      "SOCIALS/social_2026-07_ptaci_chripka",
+      "SOCIALS/social_2026-07_traktor_roku",
+      "SOCIALS/social_2026-06_biostimulanty_trh",
+      "SOCIALS/social_2026-06_coceral_sklizen",
+      "SOCIALS/social_2026-07_fendt_900vario",
+      "SOCIALS/social_2026-06_farmdroid_spray",
+      "SOCIALS/social_2026-06_valtra_cvt",
+      "SOCIALS/social_2026-07_cr11",
+      "SOCIALS/social_2026-07_nl_kultivovane_maso",
+      "SOCIALS/social_2026-07_case_ih_puma_reddot",
+      "SOCIALS/social_2026-07_kubota_m5_m7004"
+    ],
+    "notes": "First live (non-dry-run) execution, per explicit user confirmation that dry-run 1 matching was valid. Re-fetched Cloudinary SOCIALS listing and Buffer sent-post matches fresh before deleting -- both identical to dry-run 1 snapshot, no drift. Deleted via authenticated Cloudinary Admin API bulk DELETE /resources/image/upload (Basic auth api_key:api_secret), not the public delivery API. Post-delete verification confirmed exactly the 6 hard-floor assets remain in SOCIALS/. socials-cleanup.md skill created to replace the ad-hoc dry-run instructions for future runs (dry-run gate removed)."
   }
 ]
