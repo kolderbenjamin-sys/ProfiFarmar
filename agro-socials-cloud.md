@@ -73,9 +73,11 @@ set -euo pipefail
 # (UUID) — NE podle `published_at`! Protože UUID jsou prakticky náhodná, tohle ořezání
 # NENÍ "posledních 100 podle data" — nejnovější články tak mohou být tiše mimo okno,
 # i když existují (ověřeno v provozu 2026-08-11: bez limitu se ztratily 2 ze 3 článků
-# nejnovější dávky). VŽDY volej s vysokým limitem a řaď si výsledek podle `published_at` sám.
+# nejnovější dávky; ověřeno znovu 2026-08-13 s `limit=1000` — pořád platí, endpoint
+# limit respektuje a vrací přesně tolik řádků, kolik se o něj řekne). VŽDY volej s vysokým
+# limitem (10000 s rezervou pro budoucí růst) a řaď si výsledek podle `published_at` sám.
 response=$(curl -sS -H "Authorization: Bearer $AI_API_KEY" \
-  "https://profifarmar.cz/api/webhook.php?limit=1000")
+  "https://profifarmar.cz/api/webhook.php?limit=10000")
 
 # posted-log.json = [{ "id": "...", "url": "...", "posted_at": "...", "note": "(volitelně, u přeskočených)" }, ...]
 posted_ids=$(jq '[.[].id]' posted-log.json 2>/dev/null || echo "[]")
@@ -335,7 +337,7 @@ posted-log.json aktualizován a commitnut.
 | Slot 07:00 naplánován na zítra místo dneška | Trigger routine startuje po 07:00 místního času — přesuň trigger na 05:00–06:00 Europe/Prague |
 | `dueAt` posunuté o hodinu | Nepoužívej pevný `+02:00`/`+01:00` offset — vždy přes `TZ="Europe/Prague" date -d ...` (funkce `compute_due_utc`) |
 | Stejný článek publikován 2× | `posted-log.json` se nekomitnul z předchozího běhu — zkontroluj Krok 7 a push oprávnění |
-| **Nejnovější články chybí v `candidates`** | Endpoint bez `?limit=` vrací jen 100 záznamů řazených podle `id` (UUID), NE podle data — vždy volej s `?limit=1000` (viz Krok 1) |
+| **Nejnovější články chybí v `candidates`** | Endpoint bez `?limit=` vrací jen 100 záznamů řazených podle `id` (UUID), NE podle data — vždy volej s `?limit=10000` (viz Krok 1) |
 | Cloudinary signature error | Signature musí sedět přesně na parametry a jejich pořadí — abecedně, bez `file`/`api_key`, viz `upload_to_cloudinary` |
 | Buffer 406 Not Acceptable | Header `Accept: text/event-stream, application/json` musí být přítomný |
 | Buffer odmítne `customScheduled` | Ověř, že `schedulingType: "automatic"` a `dueAt` je validní ISO8601 UTC (`Z` suffix) |
